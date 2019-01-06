@@ -13,17 +13,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
+		..\Angular commands.txt = ..\Angular commands.txt
 		..\clean-with-scc.bat = ..\clean-with-scc.bat
 		..\Migration commands.txt = ..\Migration commands.txt
 		..\README.md = ..\README.md
-		..\TechnicalTask.eml = ..\TechnicalTask.eml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaScheduleV2", "CinemaScheduleV2\CinemaScheduleV2.csproj", "{0C1B1663-DAC5-4269-9BA1-9CE0C3C68C03}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9F11D65A-1872-4041-A4A0-290ADF2D0622}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaScheduleV2.Contracts", "CinemaScheduleV2.Contracts\CinemaScheduleV2.Contracts.csproj", "{E1C2A590-0D65-400B-B932-603B7FBFB1A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSchedule.Contracts", "CinemaSchedule.Contracts\CinemaSchedule.Contracts.csproj", "{11450E02-918D-4237-9BE7-951A823CF340}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaScheduleV2.Tests", "CinemaScheduleV2.Tests\CinemaScheduleV2.Tests.csproj", "{B145E37F-0DEC-4766-B130-F2C4FC1A375C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSchedule.UnitTests", "CinemaSchedule.UnitTests\CinemaSchedule.UnitTests.csproj", "{D4E040C7-5AC5-4ABB-B483-E1E273E48419}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task", "Task", "{7FDC9D2E-46A2-4110-9CFD-22A72950519E}"
+	ProjectSection(SolutionItems) = preProject
+		..\Task\image001.png = ..\Task\image001.png
+		..\Task\image002.png = ..\Task\image002.png
+		..\Task\Task description RU.eml = ..\Task\Task description RU.eml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSchedule.WebSite", "CinemaSchedule.WebSite\CinemaSchedule.WebSite.csproj", "{3E816FD4-2613-42EF-948D-70D767BD95F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,21 +52,25 @@ Global
 		{6ABBD3AD-4557-4893-9D23-A2E3409F6A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ABBD3AD-4557-4893-9D23-A2E3409F6A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ABBD3AD-4557-4893-9D23-A2E3409F6A2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C1B1663-DAC5-4269-9BA1-9CE0C3C68C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C1B1663-DAC5-4269-9BA1-9CE0C3C68C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C1B1663-DAC5-4269-9BA1-9CE0C3C68C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C1B1663-DAC5-4269-9BA1-9CE0C3C68C03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1C2A590-0D65-400B-B932-603B7FBFB1A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1C2A590-0D65-400B-B932-603B7FBFB1A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1C2A590-0D65-400B-B932-603B7FBFB1A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1C2A590-0D65-400B-B932-603B7FBFB1A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B145E37F-0DEC-4766-B130-F2C4FC1A375C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B145E37F-0DEC-4766-B130-F2C4FC1A375C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B145E37F-0DEC-4766-B130-F2C4FC1A375C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B145E37F-0DEC-4766-B130-F2C4FC1A375C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11450E02-918D-4237-9BE7-951A823CF340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11450E02-918D-4237-9BE7-951A823CF340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11450E02-918D-4237-9BE7-951A823CF340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11450E02-918D-4237-9BE7-951A823CF340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E040C7-5AC5-4ABB-B483-E1E273E48419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E040C7-5AC5-4ABB-B483-E1E273E48419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E040C7-5AC5-4ABB-B483-E1E273E48419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E040C7-5AC5-4ABB-B483-E1E273E48419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E816FD4-2613-42EF-948D-70D767BD95F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E816FD4-2613-42EF-948D-70D767BD95F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E816FD4-2613-42EF-948D-70D767BD95F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E816FD4-2613-42EF-948D-70D767BD95F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D4E040C7-5AC5-4ABB-B483-E1E273E48419} = {9F11D65A-1872-4041-A4A0-290ADF2D0622}
+		{7FDC9D2E-46A2-4110-9CFD-22A72950519E} = {69BBB1E4-7D35-4A4B-9712-12FB031B4E31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E78EE46-7E29-4702-B62B-A719DACE4356}

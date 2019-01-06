@@ -1,1 +1,3 @@
-# CinemaSchedule
+# Technical task
+
+There is company "www.mycompany.com", which is located in the city of Gadyukino. You need to develop an application to display the schedule of cinemas in this city. The company has lists of movies and cinemas. It is necessary to develop a structure for storing schedules with reference to directories, a page for adding a schedule and a page for displaying the city schedule. It is necessary to pay attention to the validation of the input data.

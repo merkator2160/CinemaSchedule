@@ -1,0 +1,3 @@
+node main.js
+tsc main.ts
+tsc main.ts --watch
