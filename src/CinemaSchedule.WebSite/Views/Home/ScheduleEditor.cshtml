@@ -1,0 +1,80 @@
+﻿@{
+	ViewData["Title"] = "Schedule editor";
+}
+
+<div ng-app="CinemaApp">
+	<div ng-controller="ScheduleController">
+		<div ng-cloak class="text-center">
+			<div class="row">
+				<div class="col">
+					<h4>@ViewData["Title"]</h4>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-sm-12">
+					<div ng-show="ErrorMessage" class="alert alert-danger" role="alert">Message</div>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-sm-2">Cinema</div>
+				<div class="col-sm-9">
+					<select class="form-control"
+							ng-model="SelectedCinema"
+							ng-options="x.Name for x in Cinemas track by x.Id"
+							ng-change="OnCinemaChange()"></select>
+				</div>
+				<div class="col-sm-1">*</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-sm-2">Film</div>
+				<div class="col-sm-9">
+					<select class="form-control"
+							ng-model="SelectedFilm"
+							ng-options="Session.Film.Name for Session in SelectedCinema.Sessions track by x.Id"
+							ng-change="OnFilmChange()"></select>
+				</div>
+				<div class="col-sm-1">*</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-sm-2">Date</div>
+				<div class="col-sm-9">
+					<select class="form-control"
+							ng-model="SelectedDate"
+							ng-options="Session.BeginDate | date:'dd.MM.yy' for Session in SelectedCinema.Sessions track by x.Id"
+							ng-change="OnDateChange()"></select>
+				</div>
+				<div class="col-sm-1">*</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-sm-2">Sessions</div>
+				<div class="col-sm-9">
+					<select class="form-control" multiple
+							ng-model="SelectedDate"
+							ng-options="Session.BeginDate | date:'hh:mm' for Session in SelectedCinema.Sessions track by x.Id"
+							ng-change="OnDateChange()"></select>
+				</div>
+				<div class="col-sm-1">*</div>
+			</div>
+
+			<div class="row form-group">
+				<button ng-click="OkBtnClick()" type="button" class="btn btn-primary">Ok</button>
+				<button ng-click="CancelBtnClick()" type="button" class="btn btn-primary">Cancel</button>
+				<button ng-click="RemoveBtnClick()" type="button" class="btn btn-danger">Remove</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col text-center">
+				<button ng-click="OnTestBtnClick()" type="button" class="btn btn-warning">Test</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts
+	{
+	<script src="~/js/CinemaApp.js"></script>
+	<script src="~/js/controllers/ScheduleController.js"></script>
+}

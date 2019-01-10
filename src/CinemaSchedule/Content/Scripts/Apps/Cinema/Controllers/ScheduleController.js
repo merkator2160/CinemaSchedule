@@ -4,7 +4,7 @@
     var config = angular.fromJson(angular.element(document.querySelector('#initializationData')).html());
     GetData($scope, $http, $log, config);
     UnblockUi();
-});     // getting the existing module and add a new controller
+});
 
 
 // FUNCTIONS //////////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ function GetData($scope, $http, $log, config)
         alert(message);
     }).finally(function()
     {
-        $log.info("Loading of data was finished!");
+        $log.info("Data loading was finished!");
     });
 }
 function InitEvents($scope)

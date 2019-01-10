@@ -1,9 +1,9 @@
-﻿using CinemaSchedule.DataBase.Models;
+﻿using CinemaSchedule.Database.Models.Storage;
 
-namespace CinemaSchedule.DataBase.Interfaces
+namespace CinemaSchedule.Database.Interfaces
 {
-    public interface ICinemaRepository : IRepository<CinemaDb>
-    {
+	public interface ICinemaRepository : IRepository<CinemaDb>
+	{
 
-    }
+	}
 }

@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -234,6 +235,17 @@
     <Compile Include="Models\ApiModels\FilmAm.cs" />
     <Compile Include="Models\ApiModels\SessionAm.cs" />
     <Compile Include="Prototypes\ApiControllerBase.cs" />
+    <Compile Include="Services\CinemaService.cs" />
+    <Compile Include="Services\FilmService.cs" />
+    <Compile Include="Services\Interfaces\ICinemaService.cs" />
+    <Compile Include="Services\Interfaces\IFilmService.cs" />
+    <Compile Include="Services\Interfaces\ISessionService.cs" />
+    <Compile Include="Services\Models\CinemaDto.cs" />
+    <Compile Include="Services\Models\Exceptions\BusinessException.cs" />
+    <Compile Include="Services\Models\Exceptions\RequestedObjectNotFoundException.cs" />
+    <Compile Include="Services\Models\FilmDto.cs" />
+    <Compile Include="Services\Models\SessionDto.cs" />
+    <Compile Include="Services\SessionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Scripts\Apps\Cinema\CinemaApp.js" />
@@ -270,7 +282,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\AutoMapper\Resolvers\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\glyphicons-halflings-regular.woff" />
@@ -279,17 +290,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CinemaSchedule.BusinessLogic\CinemaSchedule.BusinessLogic.csproj">
-      <Project>{6abbd3ad-4557-4893-9d23-a2e3409f6a2b}</Project>
-      <Name>CinemaSchedule.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CinemaSchedule.DataBase\CinemaSchedule.DataBase.csproj">
-      <Project>{5143e361-6e51-4031-9017-a75ca664cd45}</Project>
-      <Name>CinemaSchedule.DataBase</Name>
-    </ProjectReference>
+    <Content Include="Views\Home\ScheduleViewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\ScheduleViewer.cshtml" />
+    <ProjectReference Include="..\CinemaSchedule.DatabaseOld\CinemaSchedule.DatabaseOld.csproj">
+      <Project>{5143e361-6e51-4031-9017-a75ca664cd45}</Project>
+      <Name>CinemaSchedule.DatabaseOld</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

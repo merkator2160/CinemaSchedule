@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using CinemaSchedule.Common.DependencyInjection;
+using CinemaSchedule.Database.DependencyInjection;
+using CinemaSchedule.WebSite.Middleware.AutoMapper;
+using CinemaSchedule.WebSite.Middleware.Config;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CinemaSchedule.WebSite
 {
 	public class Startup
 	{
 		private readonly IConfiguration _configuration;
+		private readonly IHostingEnvironment _env;
 
 
-		public Startup(IConfiguration configuration)
+		public Startup(IHostingEnvironment env)
 		{
-			_configuration = configuration;
+			_env = env;
+			_configuration = CustomConfigurationProvider.CreateConfiguration(env.EnvironmentName, env.ContentRootPath);
 		}
 
 
@@ -29,6 +38,22 @@ namespace CinemaSchedule.WebSite
 
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+		}
+		private IServiceProvider BuildServiceProvider(IServiceCollection services)
+		{
+			var builder = new ContainerBuilder();
+
+			builder.RegisterLocalServices();
+			builder.RegisterLocalConfiguration(_configuration);
+
+			builder.RegisterModule(new DatabaseModule(_configuration));
+			builder.RegisterModule(new AutoMapperModule(Collector.LoadSolutionAssemblies()));
+
+			builder.Populate(services);
+
+			var container = builder.Build();
+
+			return new AutofacServiceProvider(container);
 		}
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
@@ -48,7 +73,11 @@ namespace CinemaSchedule.WebSite
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					template: "{controller=Home}/{action=ScheduleViewer}/{id?}");
+
+				routes.MapRoute(
+					name: "api",
+					template: "api/{controller}/{action}/{id?}");
 			});
 		}
 	}

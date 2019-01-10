@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CinemaSchedule.WebSite.Middleware.AutoMapper;
 using System.Reflection;
 using Xunit;
 
@@ -7,11 +8,11 @@ namespace CinemaSchedule.UnitTests.AutoMapper
 	public class AutoMapperTest
 	{
 		[Fact]
-		public void TheWholeAutomapperConfigurationTest()
+		public void AutomapperConfigurationTest()
 		{
 			var mapperConfiguration = new MapperConfiguration(cfg =>
 			{
-				cfg.AddProfiles(typeof(AutoMapperMiddleware).GetTypeInfo().Assembly);
+				cfg.AddProfiles(typeof(AutoMapperModule).GetTypeInfo().Assembly);
 			});
 
 			mapperConfiguration.CompileMappings();

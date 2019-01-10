@@ -1,32 +1,20 @@
-﻿using CinemaSchedule.DataBase.Interfaces;
-using CinemaSchedule.DataBase.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using CinemaSchedule.Database.Interfaces;
+using CinemaSchedule.Database.Models.Storage;
+using MongoDB.Driver;
 
-namespace CinemaSchedule.DataBase.Repositories
+namespace CinemaSchedule.Database.Repositories
 {
-    public class CinemaRepository : EfBaseRepository<CinemaDb, DataContext>, ICinemaRepository
-    {
-        public CinemaRepository(DataContext context) : base(context)
-        {
-
-        }
+	public class CinemaRepository : MongoRepositoryBase<CinemaDb>, ICinemaRepository
+	{
+		private readonly IMongoCollection<CinemaDb> _collection;
 
 
-        // IRepository<CinemaDb> //////////////////////////////////////////////////////////////////
-        public override IReadOnlyCollection<CinemaDb> GetAll()
-        {
-            return Context.Cinemas.
-                Include(p => p.Sessions.Select(k => k.Film)).
-                ToArray();
-        }
-        public override CinemaDb Get(Int32 id)
-        {
-            return Context.Cinemas.
-                Include(p => p.Sessions.Select(k => k.Film)).
-                FirstOrDefault(p => p.Id == id);
-        }
-    }
+		public CinemaRepository(DataContext context) : base(context.Cinemas)
+		{
+			_collection = context.Cinemas;
+		}
+
+
+		// ICinemaRepository ////////////////////////////////////////////////////////////////////////
+	}
 }
