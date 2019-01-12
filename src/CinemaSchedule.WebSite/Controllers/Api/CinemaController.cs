@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSchedule.WebSite.Controllers.Api
 {
+	[Route("api/[controller]/[action]")]
 	public class CinemaController : Controller
 	{
 		private readonly ICinemaService _cinemaService;

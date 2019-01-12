@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CinemaSchedule.Common.DependencyInjection;
+using CinemaSchedule.Database;
 using CinemaSchedule.Database.DependencyInjection;
+using CinemaSchedule.WebSite.Middleware;
 using CinemaSchedule.WebSite.Middleware.AutoMapper;
 using CinemaSchedule.WebSite.Middleware.Config;
 using Microsoft.AspNetCore.Builder;
@@ -28,16 +30,17 @@ namespace CinemaSchedule.WebSite
 
 
 		// FUNCTIONS //////////////////////////////////////////////////////////////////////////////
-		public void ConfigureServices(IServiceCollection services)
+		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
 			services.Configure<CookiePolicyOptions>(options =>
 			{
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
-
-
+			services.AddConfiguredSwaggerGen();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			return BuildServiceProvider(services);
 		}
 		private IServiceProvider BuildServiceProvider(IServiceCollection services)
 		{
@@ -51,12 +54,12 @@ namespace CinemaSchedule.WebSite
 
 			builder.Populate(services);
 
-			var container = builder.Build();
-
-			return new AutofacServiceProvider(container);
+			return new AutofacServiceProvider(builder.Build());
 		}
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext context)
 		{
+			context.AddInitialData();
+
 			if(env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -68,16 +71,13 @@ namespace CinemaSchedule.WebSite
 
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+			app.UseConfiguredSwagger();
 
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=ScheduleViewer}/{id?}");
-
-				routes.MapRoute(
-					name: "api",
-					template: "api/{controller}/{action}/{id?}");
 			});
 		}
 	}

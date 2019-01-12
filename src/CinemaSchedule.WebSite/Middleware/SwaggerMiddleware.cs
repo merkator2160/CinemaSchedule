@@ -31,7 +31,7 @@ namespace CinemaSchedule.WebSite.Middleware
 			app.UseSwaggerUI(c =>
 			{
 				c.RoutePrefix = "api-docs";
-				c.SwaggerEndpoint("/api-docs/AccountAndJwt/swagger.json", "CinemaSchedule API V1");
+				c.SwaggerEndpoint("/api-docs/CinemaSchedule/swagger.json", "CinemaSchedule API V1");
 			});
 		}
 	}

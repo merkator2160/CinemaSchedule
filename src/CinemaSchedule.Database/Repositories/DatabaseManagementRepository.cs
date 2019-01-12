@@ -1,7 +1,7 @@
 ﻿using CinemaSchedule.Database.Interfaces;
 using MongoDB.Driver;
 using System;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemaSchedule.Database.Repositories
 {
@@ -17,13 +17,20 @@ namespace CinemaSchedule.Database.Repositories
 
 
 		// IDatabaseManagementRepository //////////////////////////////////////////////////////////
-		public String[] GetAllCollections()
+		public async Task<String[]> GetAllCollectionsAsync()
 		{
-			using(var collections = _context.Database.ListCollections())
+			using(var cursor = await _context.Database.ListCollectionNamesAsync())
 			{
-				var collectionList = collections.ToList();
-				return collectionList.Select(x => x["name"].ToString()).ToArray();
+				return (await cursor.ToListAsync()).ToArray();
 			}
+		}
+		public Task DropDatabaseAsync(String name)
+		{
+			return _context.Client.DropDatabaseAsync(name);
+		}
+		public Task DropCollectionAsync(String name)
+		{
+			return _context.Database.DropCollectionAsync(name);
 		}
 	}
 }
