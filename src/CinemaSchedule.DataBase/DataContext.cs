@@ -27,6 +27,8 @@ namespace CinemaSchedule.Database
 
 		// ENTITIES ///////////////////////////////////////////////////////////////////////////////
 		public IMongoCollection<CinemaDb> Cinemas => Database.GetCollection<CinemaDb>("Cinemas");
+		public IMongoCollection<MovieDb> Movies => Database.GetCollection<MovieDb>("Movies");
+		public IMongoCollection<SessionDb> Sessions => Database.GetCollection<SessionDb>("Sessions");
 
 
 		// SERVER /////////////////////////////////////////////////////////////////////////////////

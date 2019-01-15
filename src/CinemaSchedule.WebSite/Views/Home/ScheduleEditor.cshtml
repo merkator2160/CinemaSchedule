@@ -21,9 +21,8 @@
 				<div class="col-sm-2">Cinema</div>
 				<div class="col-sm-9">
 					<select class="form-control"
-							ng-model="SelectedCinema"
-							ng-options="x.Name for x in Cinemas track by x.Id"
-							ng-change="OnCinemaChange()"></select>
+							ng-model="selectedCinema"
+							ng-options="x.name for x in cinemas track by x.id"></select>
 				</div>
 				<div class="col-sm-1">*</div>
 			</div>
@@ -51,7 +50,7 @@
 				<div class="col-sm-2">Sessions</div>
 				<div class="col-sm-9">
 					<select class="form-control" multiple
-							ng-model="SelectedDate"
+							ng-model="selectedDate"
 							ng-options="Session.BeginDate | date:'hh:mm' for Session in SelectedCinema.Sessions track by x.Id"
 							ng-change="OnDateChange()"></select>
 				</div>
@@ -75,6 +74,8 @@
 
 @section scripts
 	{
-	<script src="~/js/CinemaApp.js"></script>
-	<script src="~/js/controllers/ScheduleController.js"></script>
+	<script src="~/js/cinemaApp.js"></script>
+	<script src="~/js/controllers/scheduleController.js"></script>
+	<script src="~/js/dataService.js"></script>
+	<script src="~/js/main.js"></script>
 }

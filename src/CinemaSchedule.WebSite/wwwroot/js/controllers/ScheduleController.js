@@ -1,30 +1,39 @@
-﻿angular.module("CinemaApp").controller("ScheduleController", function ($scope, $http)
+﻿cinemaApp.controller("scheduleController", function ($scope, dataService)
 {
-    getData($scope, $http, $log);
+	GetData($scope, dataService);
 	InitEvents($scope);
 });
 
 
 // FUNCTIONS //////////////////////////////////////////////////////////////////////////////////////
-function getData($scope, $http, $log)
+function GetData($scope, dataService)
 {
-    $http.get(config.GetAllCinemasUrl).then(function(result)
-    {
-        $scope.Cinemas = result.data;
-        $scope.SelectedCinema = $scope.Cinemas[0];
+	var promise = dataService.GetCinemas();
+	promise.then(function(value)
+	{
+		$scope.cinemas = value.data;
+		$scope.selectedCinema = $scope.cinemas[0];
+	});
 
-        return $http.get(config.GetAllFilmsUrl);
-    }).then(function (result)
-    {
-        $scope.AvalibleFilms = result.data;
+	
 
-        InitEvents($scope);
-    }).catch(function(error)
-    {
-        var message = "An error occured: " + error.data.Message;
-        $log.error(message);
-        alert(message);
-    });
+	//$http.get("/api/Cinema/GetAllCinemas").then(function (result)
+ //   {
+ //       $scope.Cinemas = result.data;
+ //       $scope.selectedCinema = $scope.Cinemas[0];
+
+ //       //return $http.get('');
+ //   }).then(function (result)
+ //   {
+ //       $scope.AvailableFilms = result.data;
+
+ //       InitEvents($scope);
+ //   }).catch(function(error)
+ //   {
+ //       var message = "An error occured: " + error.data.Message;
+ //       $log.error(message);
+ //       alert(message);
+ //   });
 }
 function InitEvents($scope, $log)
 {
@@ -37,9 +46,6 @@ function InitEvents($scope, $log)
 	$scope.OnRemoveBtnClick = function()
 	{
 	};
-	$scope.OnOnCinemaChange = function()
-	{
-	};
 	$scope.OnOnFilmChange = function()
 	{
 	};
@@ -48,6 +54,6 @@ function InitEvents($scope, $log)
 	};
 	$scope.OnTestBtnClick = function()
 	{
-		console.log("fdfzdfhdf");
+		console.log($scope.selectedCinema.name);
 	};
 }

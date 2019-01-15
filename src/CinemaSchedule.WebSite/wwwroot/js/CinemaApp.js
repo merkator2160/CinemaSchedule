@@ -1,1 +1,1 @@
-﻿angular.module("CinemaApp", []);
+﻿var cinemaApp = angular.module("CinemaApp", []);
