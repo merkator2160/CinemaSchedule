@@ -6,7 +6,10 @@ namespace CinemaSchedule.WebSite.Services.Interfaces
 {
 	public interface ICinemaService
 	{
-		Task<CinemaDto[]> GetAllAsync();
-		Task<CinemaDto> GetAsync(String id);
+		Task<CinemaDto[]> GetAllCinemasAsync();
+		Task<CinemaDto> GetCinemaAsync(String id);
+		Task<MovieDto[]> GetAllMoviesAsync();
+		Task<MovieDto> GetMovieAsync(String id);
+		Task<MovieDto[]> GetMoviesByCinemaIdAsync(String cinemaId);
 	}
 }

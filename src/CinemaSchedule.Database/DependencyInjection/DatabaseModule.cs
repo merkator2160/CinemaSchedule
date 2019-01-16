@@ -25,17 +25,24 @@ namespace CinemaSchedule.Database.DependencyInjection
 		// COMPONENT REGISTRATION /////////////////////////////////////////////////////////////////
 		protected override void Load(ContainerBuilder builder)
 		{
-			RegisterContext(builder);
+			RegisterComponents(builder);
 			RegisterRepositories(builder);
 			builder.RegisterLocalConfiguration(_configuration);
 		}
-		public void RegisterContext(ContainerBuilder builder)
+		public void RegisterComponents(ContainerBuilder builder)
 		{
-			builder.RegisterInstance(new MongoClient(_configuration.GetConnectionString(_defaultDbConnectionName)))
+			builder
+				.RegisterInstance(new MongoClient(_configuration.GetConnectionString(_defaultDbConnectionName)))
 				.AsImplementedInterfaces()
 				.SingleInstance();
 
-			builder.RegisterType<DataContext>()
+			builder
+				.RegisterType<DataContext>()
+				.AsSelf()
+				.AsImplementedInterfaces();
+
+			builder
+				.RegisterType<DataSeeder>()
 				.AsSelf()
 				.AsImplementedInterfaces();
 		}

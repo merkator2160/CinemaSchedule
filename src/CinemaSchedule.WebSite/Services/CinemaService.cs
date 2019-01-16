@@ -22,17 +22,33 @@ namespace CinemaSchedule.WebSite.Services
 
 
 		// ICinemaService /////////////////////////////////////////////////////////////////
-		public async Task<CinemaDto[]> GetAllAsync()
+		public async Task<CinemaDto[]> GetAllCinemasAsync()
 		{
 			return _mapper.Map<CinemaDto[]>(await _repositoryBundle.Cinemas.GetAllAsync());
 		}
-		public async Task<CinemaDto> GetAsync(String id)
+		public async Task<CinemaDto> GetCinemaAsync(String id)
 		{
 			var cinemaDb = await _repositoryBundle.Cinemas.GetAsync(id);
 			if(cinemaDb == null)
 				throw new RequestedObjectNotFoundException($"Cinema with id = {id} not found!");
 
 			return _mapper.Map<CinemaDto>(cinemaDb);
+		}
+		public async Task<MovieDto[]> GetAllMoviesAsync()
+		{
+			return _mapper.Map<MovieDto[]>(await _repositoryBundle.Movies.GetAllAsync());
+		}
+		public async Task<MovieDto> GetMovieAsync(String id)
+		{
+			var movieDb = await _repositoryBundle.Movies.GetAsync(id);
+			if(movieDb == null)
+				throw new RequestedObjectNotFoundException($"Movie with id = {id} not found!");
+
+			return _mapper.Map<MovieDto>(movieDb);
+		}
+		public async Task<MovieDto[]> GetMoviesByCinemaIdAsync(String cinemaId)
+		{
+			return _mapper.Map<MovieDto[]>(await _repositoryBundle.Movies.GetByCinemaId(cinemaId));
 		}
 	}
 }

@@ -14,15 +14,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace CinemaSchedule.WebSite
+namespace CinemaSchedule.IntegrationTests
 {
-	public class Startup
+	public class TestStartup
 	{
 		private readonly IConfiguration _configuration;
 		private readonly IHostingEnvironment _env;
 
 
-		public Startup(IHostingEnvironment env)
+		public TestStartup(IHostingEnvironment env)
 		{
 			_env = env;
 			_configuration = CustomConfigurationProvider.CreateConfiguration(env.EnvironmentName, env.ContentRootPath);
@@ -45,9 +45,10 @@ namespace CinemaSchedule.WebSite
 		private IServiceProvider BuildServiceProvider(IServiceCollection services)
 		{
 			var builder = new ContainerBuilder();
+			var webSiteAssembly = Collector.GetAssembly("CinemaSchedule.WebSite");
 
-			builder.RegisterLocalServices();
-			builder.RegisterLocalConfiguration(_configuration);
+			builder.RegisterServices(webSiteAssembly);
+			builder.RegisterConfiguration(_configuration, webSiteAssembly);
 
 			builder.RegisterModule(new DatabaseModule(_configuration));
 			builder.RegisterModule(new AutoMapperModule(Collector.LoadSolutionAssemblies()));
@@ -58,7 +59,7 @@ namespace CinemaSchedule.WebSite
 		}
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeeder dataSeeder)
 		{
-			dataSeeder.CreateInitializeStrategy();
+			dataSeeder.DropCreateInitializeStrategy();
 
 			if(env.IsDevelopment())
 			{

@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaSchedule.Database", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old", "Old", "{73D0DD1A-CE7E-4173-A7E7-E336C7A6AC99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSchedule.IntegrationTests", "CinemaSchedule.IntegrationTests\CinemaSchedule.IntegrationTests.csproj", "{0DBAE0A2-ABF4-4575-8E06-61A70461AE39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{8A119E87-A073-45F6-A599-A581572C3C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A119E87-A073-45F6-A599-A581572C3C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A119E87-A073-45F6-A599-A581572C3C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DBAE0A2-ABF4-4575-8E06-61A70461AE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DBAE0A2-ABF4-4575-8E06-61A70461AE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DBAE0A2-ABF4-4575-8E06-61A70461AE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DBAE0A2-ABF4-4575-8E06-61A70461AE39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{D4E040C7-5AC5-4ABB-B483-E1E273E48419} = {9F11D65A-1872-4041-A4A0-290ADF2D0622}
 		{7FDC9D2E-46A2-4110-9CFD-22A72950519E} = {69BBB1E4-7D35-4A4B-9712-12FB031B4E31}
 		{5143E361-6E51-4031-9017-A75CA664CD45} = {73D0DD1A-CE7E-4173-A7E7-E336C7A6AC99}
+		{0DBAE0A2-ABF4-4575-8E06-61A70461AE39} = {9F11D65A-1872-4041-A4A0-290ADF2D0622}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E78EE46-7E29-4702-B62B-A719DACE4356}
