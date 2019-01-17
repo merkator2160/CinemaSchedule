@@ -1,19 +1,14 @@
-﻿cinemaApp.factory("dataService", function($http, $q)
+﻿cinemaApp.factory("dataService", function ($http)
 {
 	var dataService =
 	{
 		GetCinemas: function()
 		{
-			var deferred = $q.defer();
-
-			$http.get("/api/Cinema/GetAllCinemas").then(function(result)
-			{
-				deferred.resolve(result);
-			}).catch(function(error)
-			{
-				deferred.reject(error.status);
-			});
-			return deferred.promise;
+			return $http.get("/api/Cinema/GetAllCinemas");
+		},
+		GetMovies: function ()
+		{
+			return $http.get("/api/Cinema/GetAllMovies");
 		}
 	};
 

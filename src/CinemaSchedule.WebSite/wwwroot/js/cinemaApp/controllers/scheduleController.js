@@ -8,34 +8,26 @@
 // FUNCTIONS //////////////////////////////////////////////////////////////////////////////////////
 function GetData($scope, dataService)
 {
-	var promise = dataService.GetCinemas();
-	promise.then(function(value)
+	dataService.GetCinemas().then(function(value)
 	{
 		$scope.cinemas = value.data;
 		$scope.selectedCinema = $scope.cinemas[0];
+
+		return dataService.GetMovies();
+	}).then(function (value)
+	{
+		$scope.movies = value.data;
+		$scope.selectedMovie = $scope.movies[0];
+	}).catch(function (error)
+	{
+		var message = error.status + " " + error.statusText + "  \"" + error.config.url + "\"";
+
+		$scope.errorMessage = message;
+		//console.log(message);
+		//alert(message);
 	});
-
-	
-
-	//$http.get("/api/Cinema/GetAllCinemas").then(function (result)
- //   {
- //       $scope.Cinemas = result.data;
- //       $scope.selectedCinema = $scope.Cinemas[0];
-
- //       //return $http.get('');
- //   }).then(function (result)
- //   {
- //       $scope.AvailableFilms = result.data;
-
- //       InitEvents($scope);
- //   }).catch(function(error)
- //   {
- //       var message = "An error occured: " + error.data.Message;
- //       $log.error(message);
- //       alert(message);
- //   });
 }
-function InitEvents($scope, $log)
+function InitEvents($scope)
 {
 	$scope.OnOkBtnClick = function()
 	{

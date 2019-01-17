@@ -13,7 +13,7 @@
 
 			<div class="row form-group">
 				<div class="col-sm-12">
-					<div ng-show="ErrorMessage" class="alert alert-danger" role="alert">Message</div>
+					<div ng-show="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 				</div>
 			</div>
 
@@ -30,8 +30,8 @@
 				<div class="col-sm-2">Film</div>
 				<div class="col-sm-9">
 					<select class="form-control"
-							ng-model="SelectedFilm"
-							ng-options="Session.Film.Name for Session in SelectedCinema.Sessions track by x.Id"
+							ng-model="selectedMovie"
+							ng-options="x.name for x in movies track by x.Id"
 							ng-change="OnFilmChange()"></select>
 				</div>
 				<div class="col-sm-1">*</div>
