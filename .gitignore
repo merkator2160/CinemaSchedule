@@ -242,5 +242,6 @@ ModelManifest.xml
 .fake/
 
 
-/src/AccountAndJwt.Api/Logs
-/src/AccountAndJwt.IntegrationTests/Logs
+/src/CinemaSchedule.WebSite/node_modules
+/src/CinemaSchedule.WebSite/wwwroot/css/lib.css
+/src/CinemaSchedule.WebSite/wwwroot/js/lib.js

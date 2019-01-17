@@ -12,7 +12,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System;
+using System.IO;
 
 namespace CinemaSchedule.WebSite
 {
@@ -69,9 +71,16 @@ namespace CinemaSchedule.WebSite
 				app.UseExceptionHandler("/Home/Error");
 			}
 
-			app.UseStaticFiles();
 			app.UseCookiePolicy();
 			app.UseConfiguredSwagger();
+			app.UseDefaultFiles();
+			app.UseStaticFiles();
+			app.UseFileServer(new FileServerOptions()
+			{
+				FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules")),
+				RequestPath = "/node_modules",
+				EnableDirectoryBrowsing = false
+			});
 
 			app.UseMvc(routes =>
 			{

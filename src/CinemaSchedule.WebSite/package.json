@@ -1,0 +1,18 @@
+{
+	"version": "1.0.0",
+	"name": "asp.net",
+	"private": true,
+	"devDependencies": {
+		"gulp": "3.9.1",
+		"gulp-concat": "2.6.1",
+		"gulp-cssmin": "0.2.0",
+		"gulp-uglify": "3.0.0",
+		"rimraf": "2.6.2",
+		"angular": "1.7.5",
+		"bootstrap": "4.2.1",
+		"jquery": "3.3.1",
+		"jquery-validation": "1.19.0",
+		"jquery-validation-unobtrusive": "3.2.11",
+		"jquery-validation-unobtrusive-bootstrap": "2.2.0"
+	}
+}

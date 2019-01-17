@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace CinemaSchedule.IntegrationTests.Site
@@ -15,8 +14,6 @@ namespace CinemaSchedule.IntegrationTests.Site
 				var response = await client.GetAsync("/Home/ScheduleEditor");
 
 				response.EnsureSuccessStatusCode();
-
-				Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			}
 		}
 	}
