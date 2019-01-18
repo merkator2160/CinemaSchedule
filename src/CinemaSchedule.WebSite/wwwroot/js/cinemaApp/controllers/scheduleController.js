@@ -18,6 +18,12 @@ function GetData($scope, dataService)
 	{
 		$scope.movies = value.data;
 		$scope.selectedMovie = $scope.movies[0];
+
+		return dataService.GetDates();
+	}).then(function (value)
+	{
+		$scope.dates = value.data;
+		$scope.selectedDate = $scope.dates[0];
 	}).catch(function (error)
 	{
 		var message = error.status + " " + error.statusText + "  \"" + error.config.url + "\"";
@@ -29,19 +35,10 @@ function GetData($scope, dataService)
 }
 function InitEvents($scope)
 {
-	$scope.OnOkBtnClick = function()
-	{
-	};
-	$scope.OnCancelBtnClick = function()
+	$scope.OnAddBtnClick = function()
 	{
 	};
 	$scope.OnRemoveBtnClick = function()
-	{
-	};
-	$scope.OnOnFilmChange = function()
-	{
-	};
-	$scope.OnDateChange = function()
 	{
 	};
 	$scope.OnTestBtnClick = function()

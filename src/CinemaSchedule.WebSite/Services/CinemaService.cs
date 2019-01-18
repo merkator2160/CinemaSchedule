@@ -4,6 +4,7 @@ using CinemaSchedule.WebSite.Services.Interfaces;
 using CinemaSchedule.WebSite.Services.Models;
 using CinemaSchedule.WebSite.Services.Models.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CinemaSchedule.WebSite.Services
@@ -49,6 +50,24 @@ namespace CinemaSchedule.WebSite.Services
 		public async Task<MovieDto[]> GetMoviesByCinemaIdAsync(String cinemaId)
 		{
 			return _mapper.Map<MovieDto[]>(await _repositoryBundle.Movies.GetByCinemaId(cinemaId));
+		}
+		public ScheduleEditorDateDto[] CreateDatesForScheduleEditor()
+		{
+			const Int32 scheduleEditorDatesAmount = 30;
+			var currentDate = DateTime.UtcNow.AddDays(1);   // Schedule can be edited only for the next day
+			var dateList = new List<ScheduleEditorDateDto>(scheduleEditorDatesAmount);
+
+			for(var i = 0; i < scheduleEditorDatesAmount; i++)
+			{
+				dateList.Add(new ScheduleEditorDateDto()
+				{
+					Id = i,
+					Date = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day)
+				});
+				currentDate = currentDate.AddDays(1);
+			}
+
+			return dateList.ToArray();
 		}
 	}
 }

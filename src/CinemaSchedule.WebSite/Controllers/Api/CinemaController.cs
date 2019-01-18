@@ -57,5 +57,26 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		{
 			return Ok(_mapper.Map<MovieAm[]>(await _cinemaService.GetMoviesByCinemaIdAsync(cinemaId)));
 		}
+
+		/// <summary>
+		/// Creates dates for schedule editor
+		/// </summary>
+		[HttpGet]
+		[ProducesResponseType(typeof(ScheduleEditorDateAm[]), 200)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(typeof(String), 500)]
+		public IActionResult CreateDatesForEditor()
+		{
+			return Ok(_mapper.Map<ScheduleEditorDateAm[]>(_cinemaService.CreateDatesForScheduleEditor()));
+		}
+
+		[HttpGet]
+		[ProducesResponseType(typeof(ScheduleEditorDateAm[]), 200)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(typeof(String), 500)]
+		public IActionResult GetSessions([FromQuery] GetSessionsRequestAm request)
+		{
+			return Ok();
+		}
 	}
 }

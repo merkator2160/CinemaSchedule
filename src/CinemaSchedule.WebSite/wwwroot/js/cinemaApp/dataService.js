@@ -9,6 +9,10 @@
 		GetMovies: function ()
 		{
 			return $http.get("/api/Cinema/GetAllMovies");
+		},
+		GetDates: function ()
+		{
+			return $http.get("/api/Cinema/CreateDatesForEditor");
 		}
 	};
 

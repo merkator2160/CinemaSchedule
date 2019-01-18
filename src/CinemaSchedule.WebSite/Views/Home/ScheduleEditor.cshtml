@@ -31,8 +31,7 @@
 				<div class="col-sm-9">
 					<select class="form-control"
 							ng-model="selectedMovie"
-							ng-options="x.name for x in movies track by x.Id"
-							ng-change="OnFilmChange()"></select>
+							ng-options="x.name for x in movies track by x.id"></select>
 				</div>
 				<div class="col-sm-1">*</div>
 			</div>
@@ -40,9 +39,8 @@
 				<div class="col-sm-2">Date</div>
 				<div class="col-sm-9">
 					<select class="form-control"
-							ng-model="SelectedDate"
-							ng-options="Session.BeginDate | date:'dd.MM.yy' for Session in SelectedCinema.Sessions track by x.Id"
-							ng-change="OnDateChange()"></select>
+							ng-model="selectedDate"
+							ng-options="x.date | date:'MM/dd/yy' for x in dates track by x.id"></select>
 				</div>
 				<div class="col-sm-1">*</div>
 			</div>
@@ -50,16 +48,14 @@
 				<div class="col-sm-2">Sessions</div>
 				<div class="col-sm-9">
 					<select class="form-control" multiple
-							ng-model="selectedDate"
-							ng-options="Session.BeginDate | date:'hh:mm' for Session in SelectedCinema.Sessions track by x.Id"
-							ng-change="OnDateChange()"></select>
+							ng-model="selectedSession"
+							ng-options="Session.BeginDate | date:'hh:mm' for Session in SelectedCinema.Sessions track by x.Id"></select>
 				</div>
 				<div class="col-sm-1">*</div>
 			</div>
 
 			<div class="row form-group">
-				<button ng-click="OkBtnClick()" type="button" class="btn btn-primary">Ok</button>
-				<button ng-click="CancelBtnClick()" type="button" class="btn btn-primary">Cancel</button>
+				<button ng-click="AddBtnClick()" type="button" class="btn btn-primary">Add</button>
 				<button ng-click="RemoveBtnClick()" type="button" class="btn btn-danger">Remove</button>
 			</div>
 		</div>

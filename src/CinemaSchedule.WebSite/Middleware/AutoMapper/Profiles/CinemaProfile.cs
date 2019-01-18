@@ -16,6 +16,8 @@ namespace CinemaSchedule.WebSite.Middleware.AutoMapper.Profiles
 			CreateMap<MovieDb, MovieDto>();
 			CreateMap<MovieDto, MovieAm>()
 				.ForMember(p => p.Id, opt => opt.MapFrom(p => p.Id.ToString()));
+
+			CreateMap<ScheduleEditorDateDto, ScheduleEditorDateAm>();
 		}
 	}
 }
