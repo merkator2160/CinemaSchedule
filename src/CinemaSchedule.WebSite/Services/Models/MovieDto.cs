@@ -1,11 +1,10 @@
-﻿using MongoDB.Bson;
-using System;
+﻿using System;
 
 namespace CinemaSchedule.WebSite.Services.Models
 {
 	public class MovieDto
 	{
-		public ObjectId Id { get; set; }
+		public String Id { get; set; }
 		public String Name { get; set; }
 		public DateTime ReleaseDate { get; set; }
 		public String Country { get; set; }

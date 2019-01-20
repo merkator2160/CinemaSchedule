@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CinemaSchedule.Contracts.Models;
 using CinemaSchedule.WebSite.Services.Interfaces;
+using CinemaSchedule.WebSite.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -71,12 +72,17 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		}
 
 		[HttpGet]
-		[ProducesResponseType(typeof(ScheduleEditorDateAm[]), 200)]
+		[ProducesResponseType(typeof(SessionAm[]), 200)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(typeof(String), 500)]
-		public IActionResult GetSessions([FromQuery] GetSessionsRequestAm request)
+		public async Task<IActionResult> GetSessions([FromQuery] GetSessionsRequestAm request)
 		{
-			return Ok();
+			if(!ModelState.IsValid)
+				return BadRequest("Please provide valid request!");
+
+			var requestDto = _mapper.Map<GetSessionsRequestDto>(request);
+
+			return Ok(_mapper.Map<SessionAm[]>(await _cinemaService.GetSessionsAsync(requestDto)));
 		}
 	}
 }

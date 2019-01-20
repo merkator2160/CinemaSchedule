@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CinemaSchedule.WebSite.Services.Models
+namespace CinemaSchedule.Contracts.Models
 {
-	public class SessionDto
+	public class SessionAm
 	{
 		public String Id { get; set; }
 		public DateTime StartDate { get; set; }

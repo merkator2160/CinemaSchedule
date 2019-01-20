@@ -52,7 +52,7 @@ namespace CinemaSchedule.WebSite
 			builder.RegisterLocalConfiguration(_configuration);
 
 			builder.RegisterModule(new DatabaseModule(_configuration));
-			builder.RegisterModule(new AutoMapperModule(Collector.LoadSolutionAssemblies()));
+			builder.RegisterModule(new AutoMapperModule(Collector.LoadAssemblies("CinemaSchedule")));
 
 			builder.Populate(services);
 

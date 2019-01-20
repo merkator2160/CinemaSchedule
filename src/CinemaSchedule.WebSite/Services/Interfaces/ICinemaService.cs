@@ -12,5 +12,6 @@ namespace CinemaSchedule.WebSite.Services.Interfaces
 		Task<MovieDto> GetMovieAsync(String id);
 		Task<MovieDto[]> GetMoviesByCinemaIdAsync(String cinemaId);
 		ScheduleEditorDateDto[] CreateDatesForScheduleEditor();
+		Task<SessionDto[]> GetSessionsAsync(GetSessionsRequestDto request);
 	}
 }

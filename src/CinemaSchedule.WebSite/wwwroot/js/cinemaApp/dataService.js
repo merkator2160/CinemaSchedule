@@ -13,6 +13,18 @@
 		GetDates: function ()
 		{
 			return $http.get("/api/Cinema/CreateDatesForEditor");
+		},
+		GetSessions: function (cinemaId, movieId, date)
+		{
+			return $http.get("/api/Cinema/GetSessions",
+			{
+				params: 
+				{
+					cinemaId: cinemaId,
+					movieId: movieId,
+					date: date
+				}
+			});
 		}
 	};
 

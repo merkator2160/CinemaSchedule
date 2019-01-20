@@ -280,28 +280,29 @@ namespace CinemaSchedule.Database
 		{
 			if(!_context.Sessions.AsQueryable().Any())
 			{
+				var currentDate = DateTime.UtcNow.AddDays(1);
 				_context.Sessions.InsertOne(new SessionDb()
 				{
-					StartDate = new DateTime(2019, 1, 15, 9, 0, 0),
+					StartDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 9, 0, 0),
 					CinemaId = _context.Cinemas.AsQueryable().First(p => p.Name.Equals("Sun pictures")).Id,
 					MovieId = _context.Movies.AsQueryable().First(p => p.Name.Equals("Alita: Battle Angel")).Id
 				});
 				_context.Sessions.InsertOne(new SessionDb()
 				{
-					StartDate = new DateTime(2019, 1, 15, 11, 12, 0),
+					StartDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 11, 12, 0),
 					CinemaId = _context.Cinemas.AsQueryable().First(p => p.Name.Equals("Sun pictures")).Id,
 					MovieId = _context.Movies.AsQueryable().First(p => p.Name.Equals("The Addams Family Values")).Id
 				});
 
 				_context.Sessions.InsertOne(new SessionDb()
 				{
-					StartDate = new DateTime(2019, 1, 15, 9, 0, 0),
+					StartDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 9, 0, 0),
 					CinemaId = _context.Cinemas.AsQueryable().First(p => p.Name.Equals("TLC Chinese theater")).Id,
 					MovieId = _context.Movies.AsQueryable().First(p => p.Name.Equals("The Dark Knight")).Id
 				});
 				_context.Sessions.InsertOne(new SessionDb()
 				{
-					StartDate = new DateTime(2019, 1, 15, 11, 42, 0),
+					StartDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 11, 42, 0),
 					CinemaId = _context.Cinemas.AsQueryable().First(p => p.Name.Equals("TLC Chinese theater")).Id,
 					MovieId = _context.Movies.AsQueryable().First(p => p.Name.Equals("Blade Runner")).Id
 				});

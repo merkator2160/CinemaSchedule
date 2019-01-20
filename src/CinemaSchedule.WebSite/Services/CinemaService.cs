@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CinemaSchedule.Database.Interfaces;
+using CinemaSchedule.Database.Models.Filters;
 using CinemaSchedule.WebSite.Services.Interfaces;
 using CinemaSchedule.WebSite.Services.Models;
 using CinemaSchedule.WebSite.Services.Models.Exceptions;
@@ -68,6 +69,12 @@ namespace CinemaSchedule.WebSite.Services
 			}
 
 			return dateList.ToArray();
+		}
+		public async Task<SessionDto[]> GetSessionsAsync(GetSessionsRequestDto request)
+		{
+			var filter = _mapper.Map<GetSessionsFilterDb>(request);
+
+			return _mapper.Map<SessionDto[]>(await _repositoryBundle.Sessions.GetSessionsAsync(filter));
 		}
 	}
 }
