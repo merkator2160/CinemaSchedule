@@ -76,5 +76,11 @@ namespace CinemaSchedule.WebSite.Services
 
 			return _mapper.Map<SessionDto[]>(await _repositoryBundle.Sessions.GetSessionsAsync(filter));
 		}
+		public async Task RemoveObsoleteSessionsAsync()
+		{
+			var to = DateTime.UtcNow.AddDays(-1);
+			var obsoleteSessions = await _repositoryBundle.Sessions.GetSessionsOlderThanAsync(to);
+			await _repositoryBundle.Sessions.RemoveRangeAsync(obsoleteSessions);
+		}
 	}
 }

@@ -6,6 +6,7 @@ using CinemaSchedule.Database.DependencyInjection;
 using CinemaSchedule.WebSite.Middleware;
 using CinemaSchedule.WebSite.Middleware.AutoMapper;
 using CinemaSchedule.WebSite.Middleware.Config;
+using CinemaSchedule.WebSite.Middleware.Quartz;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,17 +47,22 @@ namespace CinemaSchedule.WebSite
 		}
 		private IServiceProvider BuildServiceProvider(IServiceCollection services)
 		{
+			var applicationAssemblies = Collector.LoadAssemblies("CinemaSchedule");
 			var builder = new ContainerBuilder();
 
 			builder.RegisterLocalServices();
 			builder.RegisterLocalConfiguration(_configuration);
 
 			builder.RegisterModule(new DatabaseModule(_configuration));
-			builder.RegisterModule(new AutoMapperModule(Collector.LoadAssemblies("CinemaSchedule")));
+			builder.RegisterModule(new AutoMapperModule(applicationAssemblies));
+			builder.AddQuartz(applicationAssemblies);
 
 			builder.Populate(services);
 
-			return new AutofacServiceProvider(builder.Build());
+			var container = builder.Build();
+			container.RegisterQuartzJobs();
+
+			return new AutofacServiceProvider(container);
 		}
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeeder dataSeeder)
 		{
@@ -71,6 +77,7 @@ namespace CinemaSchedule.WebSite
 				app.UseExceptionHandler("/Home/Error");
 			}
 
+			app.UseQuartz();
 			app.UseCookiePolicy();
 			app.UseConfiguredSwagger();
 			app.UseDefaultFiles();
@@ -81,7 +88,6 @@ namespace CinemaSchedule.WebSite
 				RequestPath = "/node_modules",
 				EnableDirectoryBrowsing = false
 			});
-
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

@@ -8,6 +8,6 @@ namespace CinemaSchedule.Database.Interfaces
 	public interface ISessionRepository : IRepository<SessionDb>
 	{
 		Task<SessionDb[]> GetSessionsAsync(GetSessionsFilterDb filter);
-		Task<SessionDb[]> GetSessionsOlderThan(DateTime to);
+		Task<SessionDb[]> GetSessionsOlderThanAsync(DateTime to);
 	}
 }

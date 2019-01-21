@@ -32,7 +32,7 @@ namespace CinemaSchedule.Database.Repositories
 					.ToArray();
 			});     // Maybe there is more elegant solution. I will be looking for it.
 		}
-		public Task<SessionDb[]> GetSessionsOlderThan(DateTime to)
+		public Task<SessionDb[]> GetSessionsOlderThanAsync(DateTime to)
 		{
 			return Task.Run(() =>
 			{
