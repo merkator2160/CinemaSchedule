@@ -6,11 +6,11 @@
 		{
 			return $http.get("/api/Cinema/GetAllCinemas");
 		},
-		GetMovies: function ()
+		GetMovies: function()
 		{
 			return $http.get("/api/Cinema/GetAllMovies");
 		},
-		GetDates: function ()
+		GetDates: function()
 		{
 			return $http.get("/api/Cinema/CreateDatesForEditor");
 		},
@@ -25,6 +25,10 @@
 					date: date
 				}
 			});
+		},
+		GetSessionsWithCinemaAndMovie: function()
+		{
+			return $http.get("/api/Cinema/GetSessionsWithCinemaAndMovie");
 		}
 	};
 

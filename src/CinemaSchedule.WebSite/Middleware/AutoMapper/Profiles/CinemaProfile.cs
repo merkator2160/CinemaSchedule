@@ -31,6 +31,8 @@ namespace CinemaSchedule.WebSite.Middleware.AutoMapper.Profiles
 				.ForMember(p => p.CinemaId, opt => opt.MapFrom(p => p.CinemaId.ToString()))
 				.ForMember(p => p.MovieId, opt => opt.MapFrom(p => p.MovieId.ToString()));
 			CreateMap<SessionDto, SessionAm>();
+
+			CreateMap<SessionWithCinemaAndMovieDto, SessionWithCinemaAndMovieAm>();
 		}
 	}
 }

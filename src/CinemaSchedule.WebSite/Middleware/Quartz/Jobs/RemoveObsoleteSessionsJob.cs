@@ -1,5 +1,6 @@
 ﻿using CinemaSchedule.WebSite.Services.Interfaces;
 using Quartz;
+using System;
 using System.Threading.Tasks;
 
 namespace CinemaSchedule.WebSite.Middleware.Quartz.Jobs
@@ -18,7 +19,7 @@ namespace CinemaSchedule.WebSite.Middleware.Quartz.Jobs
 		// IJob ///////////////////////////////////////////////////////////////////////////////////
 		public async Task Execute(IJobExecutionContext context)
 		{
-			await _cinemaService.RemoveObsoleteSessionsAsync();
+			await _cinemaService.RemoveObsoleteSessionsAsync(DateTime.UtcNow);
 		}
 	}
 }

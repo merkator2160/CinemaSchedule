@@ -77,6 +77,7 @@ namespace CinemaSchedule.WebSite
 				app.UseExceptionHandler("/Home/Error");
 			}
 
+			//app.UseGlobalExceptionHandler();
 			app.UseQuartz();
 			app.UseCookiePolicy();
 			app.UseConfiguredSwagger();

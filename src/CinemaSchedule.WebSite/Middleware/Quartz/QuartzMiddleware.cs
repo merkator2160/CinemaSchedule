@@ -66,6 +66,5 @@ namespace CinemaSchedule.WebSite.Middleware.Quartz
 
 			return scheduler;
 		}
-
 	}
 }

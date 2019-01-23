@@ -28,7 +28,6 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		/// </summary>
 		[HttpGet]
 		[ProducesResponseType(typeof(CinemaAm[]), 200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(typeof(String), 500)]
 		public async Task<IActionResult> GetAllCinemas()
 		{
@@ -40,7 +39,6 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		/// </summary>
 		[HttpGet]
 		[ProducesResponseType(typeof(MovieAm[]), 200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(typeof(String), 500)]
 		public async Task<IActionResult> GetAllMovies()
 		{
@@ -52,7 +50,6 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		/// </summary>
 		[HttpGet]
 		[ProducesResponseType(typeof(MovieAm[]), 200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(typeof(String), 500)]
 		public async Task<IActionResult> GetMoviesByCinemaId([FromQuery] String cinemaId)
 		{
@@ -64,16 +61,14 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		/// </summary>
 		[HttpGet]
 		[ProducesResponseType(typeof(ScheduleEditorDateAm[]), 200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(typeof(String), 500)]
 		public IActionResult CreateDatesForEditor()
 		{
-			return Ok(_mapper.Map<ScheduleEditorDateAm[]>(_cinemaService.CreateDatesForScheduleEditor()));
+			return Ok(_mapper.Map<ScheduleEditorDateAm[]>(_cinemaService.CreateDatesForScheduleEditor(DateTime.UtcNow, 30)));
 		}
 
 		[HttpGet]
 		[ProducesResponseType(typeof(SessionAm[]), 200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(typeof(String), 500)]
 		public async Task<IActionResult> GetSessions([FromQuery] GetSessionsRequestAm request)
 		{
@@ -83,6 +78,38 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 			var requestDto = _mapper.Map<GetSessionsRequestDto>(request);
 
 			return Ok(_mapper.Map<SessionAm[]>(await _cinemaService.GetSessionsAsync(requestDto)));
+		}
+
+		/// <summary>
+		/// Deletes session by provided id
+		/// </summary>
+		[HttpDelete("{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(typeof(String), 500)]
+		public async Task<IActionResult> DeleteSession(String id)
+		{
+			try
+			{
+				await _cinemaService.DeleteSessionAsync(id);
+
+				return Ok();
+			}
+			catch(ApplicationException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Return all session with cinemas and films for displaying schedule 
+		/// </summary>
+		[HttpGet]
+		[ProducesResponseType(typeof(SessionWithCinemaAndMovieAm[]), 200)]
+		[ProducesResponseType(typeof(String), 500)]
+		public async Task<IActionResult> GetSessionsWithCinemaAndMovie()
+		{
+			return Ok(_mapper.Map<SessionWithCinemaAndMovieAm[]>(await _cinemaService.GetAllSessionsWithCinemasAndMovies()));
 		}
 	}
 }

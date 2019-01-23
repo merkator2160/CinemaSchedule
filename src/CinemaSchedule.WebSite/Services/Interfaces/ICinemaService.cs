@@ -11,8 +11,10 @@ namespace CinemaSchedule.WebSite.Services.Interfaces
 		Task<MovieDto[]> GetAllMoviesAsync();
 		Task<MovieDto> GetMovieAsync(String id);
 		Task<MovieDto[]> GetMoviesByCinemaIdAsync(String cinemaId);
-		ScheduleEditorDateDto[] CreateDatesForScheduleEditor();
+		ScheduleEditorDateDto[] CreateDatesForScheduleEditor(DateTime currentDate, Int32 datesAmount);
 		Task<SessionDto[]> GetSessionsAsync(GetSessionsRequestDto request);
-		Task RemoveObsoleteSessionsAsync();
+		Task RemoveObsoleteSessionsAsync(DateTime currentDate);
+		Task DeleteSessionAsync(String id);
+		Task<SessionWithCinemaAndMovieDto[]> GetAllSessionsWithCinemasAndMovies();
 	}
 }

@@ -44,14 +44,14 @@ namespace CinemaSchedule.IntegrationTests
 		}
 		private IServiceProvider BuildServiceProvider(IServiceCollection services)
 		{
-			var builder = new ContainerBuilder();
 			var webSiteAssembly = Collector.GetAssembly("CinemaSchedule.WebSite");
+			var builder = new ContainerBuilder();
 
 			builder.RegisterServices(webSiteAssembly);
 			builder.RegisterConfiguration(_configuration, webSiteAssembly);
 
 			builder.RegisterModule(new DatabaseModule(_configuration));
-			builder.RegisterModule(new AutoMapperModule(Collector.LoadSolutionAssemblies()));
+			builder.RegisterModule(new AutoMapperModule(Collector.LoadAssemblies("CinemaSchedule.WebSite")));
 
 			builder.Populate(services);
 
