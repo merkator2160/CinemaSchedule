@@ -1,4 +1,5 @@
 ﻿using CinemaSchedule.Contracts.Models;
+using CinemaSchedule.Contracts.Models.ScheduleViewer;
 using CinemaSchedule.Database.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
@@ -127,12 +128,12 @@ namespace CinemaSchedule.IntegrationTests.Api
 		}
 
 		[Fact]
-		public async Task GetSessionsForScheduleViewerTest()
+		public async Task GetSessionsWithCinemaAndMovieTest()
 		{
 			using(var factory = new CustomWebApplicationFactory())
 			{
 				var client = factory.CreateClient();
-				var sessionResponse = await client.GetAsync("/api/Cinema/GetSessionsForScheduleViewer");
+				var sessionResponse = await client.GetAsync("/api/Cinema/GetSessionsWithCinemaAndMovie");
 
 				sessionResponse.EnsureSuccessStatusCode();
 				var sessions = await sessionResponse.DeserializeAsync<SessionWithCinemaAndMovieAm[]>();
@@ -143,6 +144,32 @@ namespace CinemaSchedule.IntegrationTests.Api
 					Assert.NotNull(x.Id);
 					Assert.NotNull(x.Cinema);
 					Assert.NotNull(x.Movie);
+				}
+			}
+		}
+
+		[Fact]
+		public async Task GetScheduleTest()
+		{
+			using(var factory = new CustomWebApplicationFactory())
+			{
+				var client = factory.CreateClient();
+				var scheduleResponse = await client.GetAsync("/api/Cinema/GetSchedule");
+
+				scheduleResponse.EnsureSuccessStatusCode();
+				var cinemas = await scheduleResponse.DeserializeAsync<CinemaWithMovieAm[]>();
+
+				foreach(var cinema in cinemas)
+				{
+					Assert.NotNull(cinema);
+					foreach(var movie in cinema.Movies)
+					{
+						Assert.NotNull(movie);
+						foreach(var session in movie.Sessions)
+						{
+							Assert.NotNull(session);
+						}
+					}
 				}
 			}
 		}

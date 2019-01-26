@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CinemaSchedule.Contracts.Models;
+using CinemaSchedule.Contracts.Models.ScheduleViewer;
 using CinemaSchedule.WebSite.Services.Interfaces;
 using CinemaSchedule.WebSite.Services.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -67,6 +68,9 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 			return Ok(_mapper.Map<ScheduleEditorDateAm[]>(_cinemaService.CreateDatesForScheduleEditor(DateTime.UtcNow, 30)));
 		}
 
+		/// <summary>
+		/// Returns all sessions for desired cinema, film and date
+		/// </summary>
 		[HttpGet]
 		[ProducesResponseType(typeof(SessionAm[]), 200)]
 		[ProducesResponseType(typeof(String), 500)]
@@ -102,7 +106,7 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		}
 
 		/// <summary>
-		/// Return all session with cinemas and films for displaying schedule 
+		/// Returns all sessions with cinemas and films
 		/// </summary>
 		[HttpGet]
 		[ProducesResponseType(typeof(SessionWithCinemaAndMovieAm[]), 200)]
@@ -110,6 +114,17 @@ namespace CinemaSchedule.WebSite.Controllers.Api
 		public async Task<IActionResult> GetSessionsWithCinemaAndMovie()
 		{
 			return Ok(_mapper.Map<SessionWithCinemaAndMovieAm[]>(await _cinemaService.GetAllSessionsWithCinemasAndMovies()));
+		}
+
+		/// <summary>
+		/// Returns cinemas with films and sessions for displaying schedule 
+		/// </summary>
+		[HttpGet]
+		[ProducesResponseType(typeof(CinemaWithMovieAm[]), 200)]
+		[ProducesResponseType(typeof(String), 500)]
+		public async Task<IActionResult> GetSchedule()
+		{
+			return Ok(_mapper.Map<CinemaWithMovieAm[]>(await _cinemaService.CreateSchedule()));
 		}
 	}
 }

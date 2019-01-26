@@ -68,16 +68,16 @@ namespace CinemaSchedule.WebSite
 		{
 			dataSeeder.CreateInitializeStrategy();
 
-			if(env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Home/Error");
-			}
+			//if(env.IsDevelopment())
+			//{
+			//	app.UseDeveloperExceptionPage();
+			//}
+			//else
+			//{
+			//	app.UseExceptionHandler("/Home/Error");
+			//}
 
-			//app.UseGlobalExceptionHandler();
+			app.UseGlobalExceptionHandler();
 			app.UseQuartz();
 			app.UseCookiePolicy();
 			app.UseConfiguredSwagger();

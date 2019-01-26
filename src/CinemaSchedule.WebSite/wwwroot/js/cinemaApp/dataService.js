@@ -29,6 +29,10 @@
 		GetSessionsWithCinemaAndMovie: function()
 		{
 			return $http.get("/api/Cinema/GetSessionsWithCinemaAndMovie");
+		},
+		GetSchedule: function ()
+		{
+			return $http.get("/api/Cinema/GetSchedule");
 		}
 	};
 

@@ -1,4 +1,4 @@
-﻿cinemaApp.controller("scheduleController", function ($scope, dataService)
+﻿cinemaApp.controller("scheduleEditorController", function ($scope, dataService)
 {
 	GetData($scope, dataService);
 	InitEvents($scope, dataService);

@@ -1,4 +1,5 @@
 ﻿using CinemaSchedule.WebSite.Services.Models;
+using CinemaSchedule.WebSite.Services.Models.ScheduleViewer;
 using System;
 using System.Threading.Tasks;
 
@@ -16,5 +17,6 @@ namespace CinemaSchedule.WebSite.Services.Interfaces
 		Task RemoveObsoleteSessionsAsync(DateTime currentDate);
 		Task DeleteSessionAsync(String id);
 		Task<SessionWithCinemaAndMovieDto[]> GetAllSessionsWithCinemasAndMovies();
+		Task<CinemaWithMovieDto[]> CreateSchedule();
 	}
 }

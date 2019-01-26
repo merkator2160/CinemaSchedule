@@ -1,6 +1,57 @@
 ﻿@{
 	ViewData["Title"] = "Schedule viewer";
 }
-<h3>@ViewData["Title"]</h3>
 
-<p>Use this area to provide additional information.</p>
+<div ng-app="cinemaApp">
+	<div ng-controller="scheduleViewerController">
+		<div ng-cloak class="ng-cloak">
+
+			<div class="row form-group text-center">
+				<div class="col">
+					<h3>@ViewData["Title"]</h3>
+				</div>
+			</div>
+
+			<div class="row form-group text-center" ng-show="errorMessage">
+				<div class="col-sm-12">
+					<div class="alert alert-danger" role="alert">{{errorMessage}}</div>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-sm-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Cinema</th>
+								<th>Movie</th>
+								<th>Sessions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="cinema in cinemas track by cinema.id">
+								<td>{{cinema.name}}</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr ng-repeat="movie in cinema.movies track by movie.id">
+								<td></td>
+								<td>{{movie.name}}</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+@section scripts
+	{
+	<script src="~/js/cinemaApp/cinemaApp.js"></script>
+	<script src="~/js/cinemaApp/controllers/scheduleViewerController.js"></script>
+	<script src="~/js/cinemaApp/dataService.js"></script>
+	<script src="~/js/main.js"></script>
+}

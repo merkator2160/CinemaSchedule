@@ -1,5 +1,10 @@
 ﻿using CinemaSchedule.Database.Interfaces;
 using CinemaSchedule.Database.Models.Storage;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using System;
+using System.Threading.Tasks;
 
 namespace CinemaSchedule.Database.Repositories
 {
@@ -15,5 +20,9 @@ namespace CinemaSchedule.Database.Repositories
 
 
 		// ICinemaRepository ////////////////////////////////////////////////////////////////////////
+		public Task<Boolean> CheckSessionExistenceAsync(ObjectId cinemaId)
+		{
+			return _context.Sessions.AsQueryable().AnyAsync(p => p.CinemaId == cinemaId);
+		}
 	}
 }

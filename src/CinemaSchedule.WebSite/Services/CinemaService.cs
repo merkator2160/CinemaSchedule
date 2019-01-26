@@ -4,6 +4,8 @@ using CinemaSchedule.Database.Models.Filters;
 using CinemaSchedule.WebSite.Services.Interfaces;
 using CinemaSchedule.WebSite.Services.Models;
 using CinemaSchedule.WebSite.Services.Models.Exceptions;
+using CinemaSchedule.WebSite.Services.Models.ScheduleViewer;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -71,9 +73,13 @@ namespace CinemaSchedule.WebSite.Services
 		}
 		public async Task<SessionDto[]> GetSessionsAsync(GetSessionsRequestDto request)
 		{
-			var filter = _mapper.Map<GetSessionsFilterDb>(request);
-
-			return _mapper.Map<SessionDto[]>(await _repositoryBundle.Sessions.GetSessionsAsync(filter));
+			return _mapper.Map<SessionDto[]>(await _repositoryBundle.Sessions.GetSessionsAsync(new GetSessionsFilterDb()
+			{
+				CinemaId = new ObjectId(request.CinemaId),
+				MovieId = new ObjectId(request.MovieId),
+				From = new DateTime(request.Date.Year, request.Date.Month, request.Date.Day - 1),
+				To = new DateTime(request.Date.Year, request.Date.Month, request.Date.Day)
+			}));
 		}
 		public async Task RemoveObsoleteSessionsAsync(DateTime currentDate)
 		{
@@ -91,10 +97,10 @@ namespace CinemaSchedule.WebSite.Services
 		}
 		public async Task<SessionWithCinemaAndMovieDto[]> GetAllSessionsWithCinemasAndMovies()
 		{
-			var sessions = await _repositoryBundle.Sessions.GetAllAsync();
-			var responseSessionList = new List<SessionWithCinemaAndMovieDto>(sessions.Length);
+			var sessionsDb = await _repositoryBundle.Sessions.GetAllAsync();
+			var responseSessionList = new List<SessionWithCinemaAndMovieDto>(sessionsDb.Length);
 
-			foreach(var x in sessions)
+			foreach(var x in sessionsDb)
 			{
 				var cinema = await _repositoryBundle.Cinemas.GetAsync(x.CinemaId);
 				var movie = await _repositoryBundle.Movies.GetAsync(x.MovieId);
@@ -109,6 +115,40 @@ namespace CinemaSchedule.WebSite.Services
 			}
 
 			return responseSessionList.ToArray();
+		}
+		public async Task<CinemaWithMovieDto[]> CreateSchedule()
+		{
+			var cinemasDb = await _repositoryBundle.Cinemas.GetAllAsync();
+			var responseCinemaList = new List<CinemaWithMovieDto>();
+
+			foreach(var cinemaDb in cinemasDb)
+			{
+				var sessionsExistsForCinema = await _repositoryBundle.Cinemas.CheckSessionExistenceAsync(cinemaDb.Id);
+				if(!sessionsExistsForCinema)
+					continue;
+
+				var cinemaMoviesDb = await _repositoryBundle.Movies.GetByCinemaId(cinemaDb.Id);
+				var moviesList = new List<MovieWithSessionDto>();
+
+				foreach(var movieDb in cinemaMoviesDb)
+				{
+					var sessionsExistsForMovie = await _repositoryBundle.Movies.CheckSessionExistenceAsync(movieDb.Id);
+					if(!sessionsExistsForMovie)
+						continue;
+
+					var movieDto = _mapper.Map<MovieWithSessionDto>(movieDb);
+					movieDto.Sessions = _mapper.Map<CleanSessionDto[]>(await _repositoryBundle.Sessions.GetSessionsAsync(cinemaDb.Id, movieDb.Id));
+
+					moviesList.Add(movieDto);
+				}
+
+				var cinemaDto = _mapper.Map<CinemaWithMovieDto>(cinemaDb);
+				cinemaDto.Movies = moviesList.ToArray();
+
+				responseCinemaList.Add(cinemaDto);
+			}
+
+			return responseCinemaList.ToArray();
 		}
 	}
 }

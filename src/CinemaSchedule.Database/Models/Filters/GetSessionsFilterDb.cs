@@ -7,6 +7,7 @@ namespace CinemaSchedule.Database.Models.Filters
 	{
 		public ObjectId CinemaId { get; set; }
 		public ObjectId MovieId { get; set; }
-		public DateTime Date { get; set; }
+		public DateTime From { get; set; }
+		public DateTime To { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CinemaSchedule.Contracts.Models
+namespace CinemaSchedule.Contracts.Models.ScheduleViewer
 {
 	public class SessionWithCinemaAndMovieAm
 	{

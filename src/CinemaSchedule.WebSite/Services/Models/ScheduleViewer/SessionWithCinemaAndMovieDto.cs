@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CinemaSchedule.WebSite.Services.Models
+namespace CinemaSchedule.WebSite.Services.Models.ScheduleViewer
 {
 	public class SessionWithCinemaAndMovieDto
 	{

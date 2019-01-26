@@ -3,8 +3,9 @@
 }
 
 <div ng-app="cinemaApp">
-	<div ng-controller="scheduleController">
+	<div ng-controller="scheduleEditorController">
 		<div ng-cloak class="ng-cloak text-center">
+
 			<div class="row form-group">
 				<div class="col">
 					<h3>@ViewData["Title"]</h3>
@@ -67,6 +68,7 @@
 					<button ng-click="OnTestBtnClick()" type="button" class="btn btn-warning">Test</button>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>
@@ -74,7 +76,7 @@
 @section scripts
 	{
 	<script src="~/js/cinemaApp/cinemaApp.js"></script>
-	<script src="~/js/cinemaApp/controllers/scheduleController.js"></script>
+	<script src="~/js/cinemaApp/controllers/scheduleEditorController.js"></script>
 	<script src="~/js/cinemaApp/dataService.js"></script>
 	<script src="~/js/main.js"></script>
 }

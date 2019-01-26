@@ -61,15 +61,16 @@ namespace CinemaSchedule.IntegrationTests
 		{
 			dataSeeder.DropCreateInitializeStrategy();
 
-			if(env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Home/Error");
-			}
+			//if(env.IsDevelopment())
+			//{
+			//	app.UseDeveloperExceptionPage();
+			//}
+			//else
+			//{
+			//	app.UseExceptionHandler("/Home/Error");
+			//}
 
+			app.UseGlobalExceptionHandler();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
 			app.UseConfiguredSwagger();

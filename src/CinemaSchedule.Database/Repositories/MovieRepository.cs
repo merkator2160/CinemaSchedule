@@ -21,15 +21,23 @@ namespace CinemaSchedule.Database.Repositories
 
 
 		// IMovieRepository ///////////////////////////////////////////////////////////////////////
-		public async Task<MovieDb[]> GetByCinemaId(String cinemaId)
+		public Task<MovieDb[]> GetByCinemaId(String cinemaId)
+		{
+			return GetByCinemaId(new ObjectId(cinemaId));
+		}
+		public async Task<MovieDb[]> GetByCinemaId(ObjectId cinemaId)
 		{
 			var movieIds = await _context.Sessions
 				.AsQueryable()
-				.Where(p => p.CinemaId == new ObjectId(cinemaId))
+				.Where(p => p.CinemaId == cinemaId)
 				.Select(p => p.MovieId)
 				.ToListAsync();
 
 			return (await _context.Movies.AsQueryable().Where(p => movieIds.Contains(p.Id)).ToListAsync()).ToArray();
+		}
+		public Task<Boolean> CheckSessionExistenceAsync(ObjectId movieId)
+		{
+			return _context.Sessions.AsQueryable().AnyAsync(p => p.MovieId == movieId);
 		}
 	}
 }
